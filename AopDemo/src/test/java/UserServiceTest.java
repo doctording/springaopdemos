@@ -14,9 +14,20 @@ public class UserServiceTest {
 	public void testSpring() throws Exception {
 		User u = new User();
 		u.setUsername("zhangsan");
-		u.setPassword("zhangsan");
+		u.setPassword("123456");
 
 		BeanFactory applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+		UserService service = (UserService)applicationContext.getBean("userService");
+		service.add(u);
+	}
+
+	@Test
+	public void testSpring2() throws Exception {
+		User u = new User();
+		u.setUsername("zhangsan");
+		u.setPassword("123456");
+
+		BeanFactory applicationContext = new ClassPathXmlApplicationContext("beans2.xml");
 		UserService service = (UserService)applicationContext.getBean("userService");
 		service.add(u);
 	}
@@ -25,7 +36,7 @@ public class UserServiceTest {
 	public void test() {
 		User u = new User();
 		u.setUsername("zhangsan");
-		u.setPassword("zhangsan");
+		u.setPassword("123456");
 
 		UserDAO userDAOProxy = new UserDAOImplSqlServer();
 		userDAOProxy.save(u);
@@ -36,7 +47,7 @@ public class UserServiceTest {
 	public void testProxyJDK() {
 		User u = new User();
 		u.setUsername("zhangsan");
-		u.setPassword("zhangsan");
+		u.setPassword("123456");
 
 		UserDAO userDAOProxy = ProxyFactory.getUserDaoLogProxy(new UserDAOImplMySQL());
 		userDAOProxy.save(u);
