@@ -117,6 +117,7 @@ public void testProxy() throws Exception {
     LogInterceptorProxy logproxy = new LogInterceptorProxy();
     logproxy.setTarget(userDAO);
     
+    // 生成代理对象，后续的操作由代理对象来操作
     UserDAO userDAOProxy = 
         (UserDAO)Proxy.newProxyInstance(userDAO.getClass().getClassLoader(),
             new Class[]{UserDAO.class}, logproxy);
@@ -135,13 +136,29 @@ public void testProxy() throws Exception {
 
 spring 使用
 
+```java
+@Aspect
+@Component
+public class LogInterceptor {
+
+	@Before("execution(public * com.bjsxt.service..*.add(..))")
+	public void before() {
+		System.out.println("method before...");
+	}
+
+	@After("execution(public * com.bjsxt.service..*.destroy(..))")
+	public void after() {
+		System.out.println("method after...");
+	}
+
+}
+```
+
 ![](./imgs/02.jpg)
 
+通过设置一个**代理类**，被代理的对象 交给 代理类 管理，通过**代理类**来操作 被代理的对象
 
-**通过设置一个 代理类，被代理的对象 交给 代理类，通过 代理类 来操作 被代理的对象**
-
-**java的反射机制**： JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。
-
+**JAVA的反射机制**：JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。
 
 ## AOP 应用
 
