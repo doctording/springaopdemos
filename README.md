@@ -46,18 +46,22 @@ public class LogInterceptor {
 ```
 
 ```java
-// 具体的数据库存储操作实现
 public class UserDAOImpl_zuhe implements UserDAO {
 
 	public UserDAO userDao = new UserDAOImplMySQL();
-	
+
+	LogInterceptor logInterceptor = new LogInterceptor();
+
+	@Override
 	public void save(User user) {
-		//System.out.println("save start...");
-		
-		new LogInterceptor().beforeMethod();
-		
+		logInterceptor.beforeMethod();
 		userDao.save(user);
-		//System.out.println("use Sql Server: user saved!");
+	}
+
+	@Override
+	public void delete(User user) {
+		logInterceptor.beforeMethod();
+		userDao.delete(user);
 	}
 
 }
@@ -134,7 +138,7 @@ public void testProxy() throws Exception {
 ![](./imgs/01.jpg)
 
 
-spring 使用
+## spring aop 使用
 
 ```java
 @Aspect
@@ -159,6 +163,13 @@ public class LogInterceptor {
 通过设置一个**代理类**，被代理的对象 交给 代理类 管理，通过**代理类**来操作 被代理的对象
 
 **JAVA的反射机制**：JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。
+
+
+spring aop 相关介绍：
+ 
+<a href='https://docs.spring.io/spring-framework/reference/core/aop/introduction-defn.html'>https://docs.spring.io/spring-framework/reference/core/aop/introduction-defn.html</a>
+
+<a href='https://docs.spring.io/spring-framework/reference/core/aop-api.html'>https://docs.spring.io/spring-framework/reference/core/aop-api.html</a>
 
 ## AOP 应用
 

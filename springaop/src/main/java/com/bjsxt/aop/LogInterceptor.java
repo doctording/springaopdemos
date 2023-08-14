@@ -11,12 +11,12 @@ public class LogInterceptor {
 
 	@Before("execution(public * com.bjsxt.service..*.add(..))")
 	public void before() {
-		System.out.println("method before...");
+		System.out.println("...method before...");
 	}
 
 	@After("execution(public * com.bjsxt.service..*.destroy(..))")
 	public void after() {
-		System.out.println("method after...");
+		System.out.println("...method after...");
 	}
 
 }

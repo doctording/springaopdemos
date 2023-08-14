@@ -17,7 +17,7 @@ public class UserDAOImplMySQL implements UserDAO {
 
 	@Override
 	public void delete(User user) {
-		System.out.println("use MySQL: user deleted!");
+		System.out.println("..........use MySQL: user deleted!");
 	}
 
 }

@@ -4,25 +4,22 @@ import com.aop.LogInterceptor;
 import com.bjsxt.dao.UserDAO;
 import com.bjsxt.model.User;
 
-//
-public class UserDAOImpl_proxy implements UserDAO {
+public class UserDAOImpl_zuhe implements UserDAO {
 
 	public UserDAO userDao = new UserDAOImplMySQL();
 
+	LogInterceptor logInterceptor = new LogInterceptor();
+
 	@Override
 	public void save(User user) {
-		//System.out.println("save start...");
-		
-		new LogInterceptor().beforeMethod();
-		
+		logInterceptor.beforeMethod();
 		userDao.save(user);
-		//System.out.println("use Sql Server: user saved!");
 	}
 
 	@Override
 	public void delete(User user) {
-		// TODO Auto-generated method stub
-		
+		logInterceptor.beforeMethod();
+		userDao.delete(user);
 	}
 
 }

@@ -43,8 +43,11 @@ public class UserServiceTest {
 		userDAOProxy.delete(u);
 	}
 
+	/**
+	 * 动态代理放松，则是一劳永逸，无需修改dao的每个方法
+	 */
 	@Test
-	public void testProxyJDK() {
+	public void testProxy() {
 		User u = new User();
 		u.setUsername("zhangsan");
 		u.setPassword("123456");
@@ -52,6 +55,22 @@ public class UserServiceTest {
 		UserDAO userDAOProxy = ProxyFactory.getUserDaoLogProxy(new UserDAOImplMySQL());
 		userDAOProxy.save(u);
 		userDAOProxy.delete(u);
+	}
+
+	/**
+	 * 组合方法，侵入了方法，每个dao方法都要自己加上LogInterceptor的方法，才能完成aop
+	 * @throws Exception
+	 */
+	@Test
+	public void testProxyZuhe() throws Exception {
+		User u = new User();
+		u.setUsername("zhangsan");
+		u.setPassword("123456");
+
+		BeanFactory applicationContext = new ClassPathXmlApplicationContext("beans_zuhe.xml");
+		UserService service = (UserService)applicationContext.getBean("userService");
+		service.add(u);
+		service.delete(u);
 	}
 
 }

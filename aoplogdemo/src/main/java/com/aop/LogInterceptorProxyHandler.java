@@ -22,9 +22,9 @@ public class LogInterceptorProxyHandler implements InvocationHandler {
 		// 被代理对象执行前执行
 		beforeMethod();
 		
-		m.invoke(target, args);
+		Object o = m.invoke(target, args);
 		
-		return null;
+		return o;
 	}
 
 	public Object getTarget() {

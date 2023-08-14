@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans>
+	<bean id="u" class="com.bjsxt.com.bjsxt.dao.impl.UserDAOImplSqlServer" />
+
+	<bean id="userService" class="com.bjsxt.com.bjsxt.service.UserService" >
+		<property name="userDAO" bean="u"/>
+	</bean>
+	
+</beans>

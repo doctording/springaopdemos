@@ -14,6 +14,10 @@ public class UserService {
 
     }
 
+    public void delete(User user) {
+        userDAO.delete(user);
+    }
+
     public UserDAO getUserDAO() {
         return userDAO;
     }
